@@ -1,10 +1,9 @@
-
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:rick_and_morty_app/feature/domain/model/characters_model.dart';
 
 import '../datasources/get_characters_datasource.dart';
+import '../model/character_model.dart';
 
 /* abstract class HttpClient {
   Future get({required  String url});
@@ -15,31 +14,24 @@ class GetCharactersDatasourceImpl implements GetCharactersDatasource {
   final client = Client();
 
   @override
-  Future<List<CharactersModel>> getCharacters() async {
-   final String url = "https://rickandmortyapi.com/api/character";
+  Future<List<CharacterModel>> getCharacters() async {
+    const String url = "https://rickandmortyapi.com/api/character";
 
-    // TODO: implement getCharacters
-  //  final cliente = Client();
-   final response = await client.get(Uri.parse(url));
+    final response = await client.get(Uri.parse(url));
 
- if(response.statusCode == 200){
-  final List<CharactersModel> characters =[];
+    if (response.statusCode == 200) {
+      final List<CharacterModel> characters = [];
 
-final body = json.decode(response.body);
+      final body = json.decode(response.body);
 
-body['characters'].map((item) { 
-  final CharactersModel character = CharactersModel.fromJson(item);
-  characters.add(character);
-}).toList();
+      body['characters'].map((item) {
+        final CharacterModel character = CharacterModel.fromJson(item);
+        characters.add(character);
+      }).toList();
 
-  return  characters;
- }
- else {
-    final List<CharactersModel> characters =[];
-
-  return characters ;
-
- }
+      return characters;
+    } else {
+      throw Exception('DataSource Error');
+    }
   }
-
 }

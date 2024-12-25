@@ -1,5 +1,5 @@
-import '../../domain/model/characters_model.dart';
+import '../../domain/entity/characters_model.dart';
 
 abstract class GetCharactersDatasource{
-    Future<List<CharactersModel>> getCharacters();
+    Future<List<CharacterModel>> getCharacters();
 }
