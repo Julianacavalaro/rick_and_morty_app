@@ -1,4 +1,4 @@
-class CharacterEntity {
+class CharacterEntity  {
   final String name;
   final String status;
   final String species;

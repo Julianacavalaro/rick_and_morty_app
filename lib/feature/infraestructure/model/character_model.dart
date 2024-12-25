@@ -19,3 +19,4 @@ class CharacterModel extends CharacterEntity {
     );
   }
 }
+ 
