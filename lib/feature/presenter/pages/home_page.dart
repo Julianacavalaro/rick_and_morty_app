@@ -18,32 +18,46 @@ class _HomePageState extends State<HomePage> {
   GetAllCharactersUsecase usecase = GetAllCharactersUsecaseImpl(
       repository:
           CharactersRepositoryImpl(datasource: GetCharactersDatasourceImpl()));
-  final String  firstName = "personagem";
+   String firstName = "personagem";
 
-
-    void getAllCharacters()async {
-
+     dynamic loading = const CircularProgressIndicator();
+bool carregar = true;
+  void getAllCharacters() async {
     var dados = await usecase.getAllCharacters();
-    var firstName = dados.first.name;
 
-    }
+    setState((){
+    firstName = dados.first.name;
+    carregar = false;
+
+     });
+  }
+
   @override
   void initState() {
     super.initState();
- getAllCharacters();
+    getAllCharacters();
   }
 
-
-  @override
+   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
-        title: const Text('Consumo de API',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: const Text("API de conselho"),
+        backgroundColor: Colors.purple,
+        titleTextStyle: const TextStyle(fontSize: 20, color: Colors.white),
+        surfaceTintColor: Colors.white,
+        actionsIconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Text(firstName
+      body: Container(
+        padding: const EdgeInsets.all(20),
+        child: Center(
+          child: Column(
+            children: [
+            carregar ? loading : Text(firstName),
+              Container(height: 20),
+            ],
+          ),
+        ),
       ),
     );
   }

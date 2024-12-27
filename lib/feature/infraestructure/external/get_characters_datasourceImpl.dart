@@ -20,13 +20,14 @@ class GetCharactersDatasourceImpl implements GetCharactersDatasource {
     final response = await client.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
-      final List<CharacterModel> characters = [];
+       List<CharacterModel> characters = [];
 
       final body = json.decode(response.body);
 
-      body['characters'].map((item) {
-        final CharacterModel character = CharacterModel.fromJson(item);
+      body['results'].map((item) {
+        final CharacterModel character = CharacterModel.fromJson (item);
         characters.add(character);
+
       }).toList();
 
       return characters;
