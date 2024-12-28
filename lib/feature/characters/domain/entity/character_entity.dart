@@ -1,4 +1,4 @@
-class CharacterEntity  {
+class CharacterEntity {
   final String name;
   final String status;
   final String species;
@@ -12,6 +12,7 @@ class CharacterEntity  {
       required this.gender,
       required this.image,
       required this.episode});
+
   factory CharacterEntity.fromJson(Map<String, dynamic> json) {
     return CharacterEntity(
       name: json['name'],
