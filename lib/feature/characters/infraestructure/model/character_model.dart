@@ -1,4 +1,4 @@
-import 'package:rick_and_morty_app/feature/domain/entity/character_entity.dart';
+import 'package:rick_and_morty_app/feature/characters/domain/entity/character_entity.dart';
 
 class CharacterModel extends CharacterEntity {
   CharacterModel(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:rick_and_morty_app/feature/domain/usecase/get_all_characters_usecase.dart';
-import 'package:rick_and_morty_app/feature/infraestructure/external/get_characters_datasourceImpl.dart';
+import 'package:rick_and_morty_app/feature/characters/domain/usecase/get_all_characters_usecase.dart';
+import 'package:rick_and_morty_app/feature/characters/infraestructure/external/get_characters_datasourceImpl.dart';
 
 import '../../infraestructure/repository/characters_repositoryImpl.dart';
 
@@ -18,18 +18,21 @@ class _HomePageState extends State<HomePage> {
   GetAllCharactersUsecase usecase = GetAllCharactersUsecaseImpl(
       repository:
           CharactersRepositoryImpl(datasource: GetCharactersDatasourceImpl()));
-   String firstName = "personagem";
+  String firstName = "personagem";
+  List<Widget> widgets2 = [];
+  var names = '';
 
-     dynamic loading = const CircularProgressIndicator();
-bool carregar = true;
+  dynamic loading = const CircularProgressIndicator();
+  bool carregar = true;
   void getAllCharacters() async {
     var dados = await usecase.getAllCharacters();
 
-    setState((){
-    firstName = dados.first.name;
-    carregar = false;
-
-     });
+    setState(() {
+      firstName = dados.first.name;
+      carregar = false;
+      List<Widget> widgets = dados.map((cachacters) => Text(cachacters.name)).toList();
+      widgets2 = widgets;
+    });
   }
 
   @override
@@ -38,11 +41,11 @@ bool carregar = true;
     getAllCharacters();
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("API de conselho"),
+        title: const Text("API Rick and Morty"),
         backgroundColor: Colors.purple,
         titleTextStyle: const TextStyle(fontSize: 20, color: Colors.white),
         surfaceTintColor: Colors.white,
@@ -53,7 +56,7 @@ bool carregar = true;
         child: Center(
           child: Column(
             children: [
-            carregar ? loading : Text(firstName),
+              carregar ? loading : Column(children: [...widgets2]),
               Container(height: 20),
             ],
           ),
