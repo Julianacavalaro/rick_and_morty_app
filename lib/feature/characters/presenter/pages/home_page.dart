@@ -30,7 +30,8 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       firstName = dados.first.name;
       carregar = false;
-      List<Widget> widgets = dados.map((cachacters) => Text(cachacters.name)).toList();
+      List<Widget> widgets = dados.map((cachacters) => ListTile(title: Text(cachacters.name),
+      leading: Icon(Icons.person_2),)).toList();
       widgets2 = widgets;
     });
   }
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         padding: const EdgeInsets.all(20),
         child: Center(
-          child: Column(
+          child: ListView(
             children: [
               carregar ? loading : Column(children: [...widgets2]),
               Container(height: 20),
