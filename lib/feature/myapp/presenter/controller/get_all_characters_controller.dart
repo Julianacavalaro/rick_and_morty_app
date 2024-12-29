@@ -1,5 +1,5 @@
-import 'package:rick_and_morty_app/feature/characters/domain/entity/character_entity.dart';
-import 'package:rick_and_morty_app/feature/characters/domain/usecase/get_all_characters_usecase.dart';
+import 'package:rick_and_morty_app/feature/myapp/domain/entity/character_entity.dart';
+import 'package:rick_and_morty_app/feature/myapp/domain/usecase/get_all_characters_usecase.dart';
 
 abstract class GetAllCharactersController {
   Future<List<CharacterEntity>> getAllCharacters();
