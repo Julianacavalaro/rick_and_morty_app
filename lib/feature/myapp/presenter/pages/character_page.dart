@@ -21,6 +21,8 @@ class CharacterPage extends StatefulWidget {
 }
 
 class _CharacterPageState extends State<CharacterPage>{
+  String get names => widget.args?.name ?? 'Nome nulo';
+
  
 void getCharacter() async {
  // var dado = await usecase.getCharacter();
@@ -43,7 +45,7 @@ getCharacter();
       ),
       body: Container(padding:  const EdgeInsets.all(20),
       alignment: Alignment.center,
-      child: Text(widget.args!.name)
+      child: Text(names)
       )
         );
   
