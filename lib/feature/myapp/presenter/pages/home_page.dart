@@ -40,6 +40,10 @@ class _HomePageState extends State<HomePage> {
       Iterable<String> names2 = dados.map((e) => e.name);
       names2.forEach(print);
       print(names2);
+      print('----------------------------------');
+      for(int i= 0 ; i<names2.length ; i++ ){
+      print(names2.elementAt(i));
+      }
       Iterable<String> images = dados.map((e) => e.image);
       List<Widget> widgets = dados
           .map((cachacters) => ListTile(
