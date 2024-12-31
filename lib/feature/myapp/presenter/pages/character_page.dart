@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
+class CharacterPageArg{
+   String name;
+   String image;
+
+  CharacterPageArg({ required this.name, required this.image});
+}
+
 class CharacterPage extends StatefulWidget {
-  const CharacterPage({super.key});
+  CharacterPageArg? args = CharacterPageArg(name: 'name', image: 'image');
+  
+   CharacterPage({super.key, this.args });
   
   @override
   State<CharacterPage> createState() =>
@@ -23,6 +32,7 @@ getCharacter();
   }
   @override
   Widget build(BuildContext context) {
+   
         return Scaffold(
       appBar: AppBar(
         title: const Text("API Rick and Morty"),
@@ -33,11 +43,9 @@ getCharacter();
       ),
       body: Container(padding:  const EdgeInsets.all(20),
       alignment: Alignment.center,
-      child: Column(
-        children: [
-        ],
-      ),
+      child: Text(widget.args!.name)
       )
         );
+  
   }
 }

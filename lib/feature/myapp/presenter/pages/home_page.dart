@@ -1,10 +1,10 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:rick_and_morty_app/feature/myapp/domain/usecase/get_all_characters_usecase.dart';
 import 'package:rick_and_morty_app/feature/myapp/infraestructure/external/get_characters_datasourceImpl.dart';
+import 'package:rick_and_morty_app/feature/myapp/presenter/pages/character_page.dart';
 
 import '../../infraestructure/repository/characters_repositoryImpl.dart';
 
@@ -23,7 +23,9 @@ class _HomePageState extends State<HomePage> {
           CharactersRepositoryImpl(datasource: GetCharactersDatasourceImpl()));
   String firstName = "personagem";
   List<Widget> widgets2 = [];
-  var names = '';
+  
+  //Iterable<String> names = [];
+  var images = '';
 
   dynamic loading = CircularProgressIndicator();
   bool carregar = true;
@@ -35,8 +37,10 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       firstName = dados.first.name;
       carregar = false;
-     // var names = dados.map((e) => Text(e.name));
-
+      Iterable<String> names2 = dados.map((e) => e.name);
+      names2.forEach(print);
+      print(names2);
+      Iterable<String> images = dados.map((e) => e.image);
       List<Widget> widgets = dados
           .map((cachacters) => ListTile(
                 title: Text(cachacters.name.toUpperCase()),
@@ -66,10 +70,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
        // padding: const EdgeInsets.all(20),
         margin: const EdgeInsets.all(20),
-        child: //Center(
-            //   child: Center(
-            //  children: [
-            
+        child: 
             carregar
                 ? Center(child: loading)
                 : ListView(
@@ -80,7 +81,10 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             TextButton(
                                 onPressed: () {
-                                
+                                  Navigator.of(context).pushNamed('/characterPage',arguments: {
+                                     CharacterPageArg(name: 'name', image: 'image'),
+                                  });
+                                 
                                 },
                                 child: widgets2[i] )
                           ],
