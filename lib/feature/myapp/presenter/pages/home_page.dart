@@ -1,7 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import 'package:rick_and_morty_app/feature/myapp/domain/usecase/get_all_characters_usecase.dart';
 import 'package:rick_and_morty_app/feature/myapp/infraestructure/external/get_characters_datasourceImpl.dart';
 import 'package:rick_and_morty_app/feature/myapp/presenter/pages/character_page.dart';
@@ -23,8 +20,12 @@ class _HomePageState extends State<HomePage> {
           CharactersRepositoryImpl(datasource: GetCharactersDatasourceImpl()));
   String firstName = "personagem";
   List<Widget> widgets2 = [];
-  
-  //Iterable<String> names = [];
+ // String names = '';
+  Iterable<String> names2 = [];
+    Iterable<String> images2 = [];
+      Iterable<String> status2 = [];
+
+
   var images = '';
 
   dynamic loading = CircularProgressIndicator();
@@ -37,18 +38,23 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       firstName = dados.first.name;
       carregar = false;
-      Iterable<String> names2 = dados.map((e) => e.name);
-      names2.forEach(print);
-      print(names2);
+      Iterable<String> names = dados.map((e) => e.name);
+      names.forEach(print);
+      print(names);
       print('----------------------------------');
-      for(int i= 0 ; i<names2.length ; i++ ){
-      print(names2.elementAt(i));
+      for(int i= 0 ; i<names.length ; i++ ){
+      print(names.elementAt(i));
       }
+      names2 =names;
       Iterable<String> images = dados.map((e) => e.image);
+      images2 = images;
+
+            Iterable<String> status = dados.map((e) => e.status);
+status2 = status;
       List<Widget> widgets = dados
           .map((cachacters) => ListTile(
                 title: Text(cachacters.name.toUpperCase()),
-                leading: Icon(Icons.person_2),
+                leading: const Icon(Icons.person_2),
               ))
           .toList();
       widgets2 = widgets;
@@ -84,10 +90,10 @@ class _HomePageState extends State<HomePage> {
                           alignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pushNamed('/characterPage',arguments: {
-                                     CharacterPageArg(name: 'name', image: 'image'),
-                                  });
+                                onPressed: () { final args =   CharacterPageArg(name: names2.elementAt(i), image: images2.elementAt(i), status: status2.elementAt(i));
+                                  Navigator.of(context).pushNamed('/characterPage',arguments: args
+                                   ,
+                                  );
                                  
                                 },
                                 child: widgets2[i] )
