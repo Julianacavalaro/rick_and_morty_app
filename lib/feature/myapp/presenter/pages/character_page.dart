@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_app/feature/myapp/presenter/controller/get_all_characters_controller.dart';
+
+import '../../domain/usecase/get_all_characters_usecase.dart';
+import '../../infraestructure/external/get_characters_datasourceImpl.dart';
+import '../../infraestructure/repository/characters_repositoryImpl.dart';
 
 class CharacterPageArg {
   final String name;
@@ -20,6 +25,7 @@ class CharacterPage extends StatefulWidget {
 }
 
 class _CharacterPageState extends State<CharacterPage> {
+  GetAllCharactersController controller = GetAllCharactersControllerImpl(usecase: GetAllCharactersUsecaseImpl(repository: CharactersRepositoryImpl(datasource: GetCharactersDatasourceImpl())));
   bool carregar = true;
   void getCharacter() async {
     // var dado = await usecase.getCharacter();
@@ -42,7 +48,7 @@ class _CharacterPageState extends State<CharacterPage> {
         titleTextStyle: const TextStyle(fontSize: 20, color: Colors.white),
         surfaceTintColor: Colors.white,
         actionsIconTheme: const IconThemeData(color: Colors.white),
-      ),
+      ), 
       body: Container(
         padding: const EdgeInsets.all(20),
         alignment: Alignment.topCenter,
@@ -50,11 +56,11 @@ class _CharacterPageState extends State<CharacterPage> {
         child: carregar ? const CircularProgressIndicator(): Column(children: [
           Image.network(args.image),
                     Text(args.name),
-                 args.status == 'Alive' ? Text(args.status, style: 
-                const TextStyle(color: Color.fromARGB(255, 56, 137, 59),
+                 Text(args.status, style: 
+                 TextStyle(color: controller.getColor(args.status),
                  fontFamily: AutofillHints.postalCode,
                  decorationStyle: TextDecorationStyle.dashed,
-                 fontWeight :FontWeight.w900 )) : Text(args.status)
+                 fontWeight :FontWeight.w900 )),
                 
         
         ]),
