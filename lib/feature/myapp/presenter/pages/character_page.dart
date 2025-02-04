@@ -8,28 +8,28 @@ import '../../infraestructure/repository/characters_repositoryImpl.dart';
 class CharacterPageArg {
   final String name;
   final String image;
-    final String status;
+  final String status;
 
-
-  CharacterPageArg({required this.status, required this.name, required this.image});
+  CharacterPageArg(
+      {required this.status, required this.name, required this.image});
 }
 
 class CharacterPage extends StatefulWidget {
-  CharacterPage({super.key});
+  const CharacterPage({super.key});
 
   @override
   State<CharacterPage> createState() =>
       // TODO: implement createState
       _CharacterPageState();
-      
 }
 
 class _CharacterPageState extends State<CharacterPage> {
-  GetAllCharactersController controller = GetAllCharactersControllerImpl(usecase: GetAllCharactersUsecaseImpl(repository: CharactersRepositoryImpl(datasource: GetCharactersDatasourceImpl())));
+  GetAllCharactersController controller = GetAllCharactersControllerImpl(
+      usecase: GetAllCharactersUsecaseImpl(
+          repository: CharactersRepositoryImpl(
+              datasource: GetCharactersDatasourceImpl())));
   bool carregar = true;
-  void getCharacter() async {
-    // var dado = await usecase.getCharacter();
-  }
+  void getCharacter() async {}
 
   @override
   void initState() {
@@ -48,22 +48,22 @@ class _CharacterPageState extends State<CharacterPage> {
         titleTextStyle: const TextStyle(fontSize: 20, color: Colors.white),
         surfaceTintColor: Colors.white,
         actionsIconTheme: const IconThemeData(color: Colors.white),
-      ), 
+      ),
       body: Container(
         padding: const EdgeInsets.all(20),
         alignment: Alignment.topCenter,
-        
-        child: carregar ? const CircularProgressIndicator(): Column(children: [
-          Image.network(args.image),
-                    Text(args.name),
-                 Text(args.status, style: 
-                 TextStyle(color: controller.getColor(args.status),
-                 fontFamily: AutofillHints.postalCode,
-                 decorationStyle: TextDecorationStyle.dashed,
-                 fontWeight :FontWeight.w900 )),
-                
-        
-        ]),
+        child: carregar
+            ? const CircularProgressIndicator()
+            : Column(children: [
+                Image.network(args.image),
+                Text(args.name),
+                Text(args.status,
+                    style: TextStyle(
+                        color: controller.getColor(args.status),
+                        fontFamily: AutofillHints.postalCode,
+                        decorationStyle: TextDecorationStyle.dashed,
+                        fontWeight: FontWeight.w900)),
+              ]),
       ),
     );
   }

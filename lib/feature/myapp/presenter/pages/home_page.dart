@@ -20,17 +20,15 @@ class _HomePageState extends State<HomePage> {
           CharactersRepositoryImpl(datasource: GetCharactersDatasourceImpl()));
   String firstName = "personagem";
   List<Widget> widgets2 = [];
- // String names = '';
+  // String names = '';
   Iterable<String> names2 = [];
-    Iterable<String> images2 = [];
-      Iterable<String> status2 = [];
-
+  Iterable<String> images2 = [];
+  Iterable<String> status2 = [];
 
   var images = '';
 
-  dynamic loading = CircularProgressIndicator();
+  dynamic loading = const CircularProgressIndicator();
   bool carregar = true;
-
 
   void getAllCharacters() async {
     var dados = await usecase.getAllCharacters();
@@ -39,18 +37,12 @@ class _HomePageState extends State<HomePage> {
       firstName = dados.first.name;
       carregar = false;
       Iterable<String> names = dados.map((e) => e.name);
-      names.forEach(print);
-      print(names);
-      print('----------------------------------');
-      for(int i= 0 ; i<names.length ; i++ ){
-      print(names.elementAt(i));
-      }
-      names2 =names;
+      names2 = names;
       Iterable<String> images = dados.map((e) => e.image);
       images2 = images;
 
-            Iterable<String> status = dados.map((e) => e.status);
-status2 = status;
+      Iterable<String> status = dados.map((e) => e.status);
+      status2 = status;
       List<Widget> widgets = dados
           .map((cachacters) => ListTile(
                 title: Text(cachacters.name.toUpperCase()),
@@ -78,29 +70,31 @@ status2 = status;
         actionsIconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
-       // padding: const EdgeInsets.all(20),
         margin: const EdgeInsets.all(20),
-        child: 
-            carregar
-                ? Center(child: loading)
-                : ListView(
-                    children: [
-                      for (int i = 0; i < widgets2.length; i++)
-                        OverflowBar(
-                          alignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TextButton(
-                                onPressed: () { final args =   CharacterPageArg(name: names2.elementAt(i), image: images2.elementAt(i), status: status2.elementAt(i));
-                                  Navigator.of(context).pushNamed('/characterPage',arguments: args
-                                   ,
-                                  );
-                                 
-                                },
-                                child: widgets2[i] )
-                          ],
-                        ),
-                    ],
-                  ),
+        child: carregar
+            ? Center(child: loading)
+            : ListView(
+                children: [
+                  for (int i = 0; i < widgets2.length; i++)
+                    OverflowBar(
+                      alignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              final args = CharacterPageArg(
+                                  name: names2.elementAt(i),
+                                  image: images2.elementAt(i),
+                                  status: status2.elementAt(i));
+                              Navigator.of(context).pushNamed(
+                                '/characterPage',
+                                arguments: args,
+                              );
+                            },
+                            child: widgets2[i])
+                      ],
+                    ),
+                ],
+              ),
         // ],
       ),
     );

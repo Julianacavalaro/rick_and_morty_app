@@ -10,15 +10,12 @@ abstract class GetAllCharactersController {
 
 class GetAllCharactersControllerImpl extends GetAllCharactersController {
   final GetAllCharactersUsecase usecase;
-  
-
 
   GetAllCharactersControllerImpl({required this.usecase});
 
-
   @override
   Future<List<CharacterEntity>> getAllCharacters() async {
-      final List<CharacterEntity> list;
+    final List<CharacterEntity> list;
 
     try {
       list = await usecase.getAllCharacters();
@@ -27,15 +24,15 @@ class GetAllCharactersControllerImpl extends GetAllCharactersController {
     }
     return list;
   }
-  
+
   @override
   Color getColor(String status) {
-  if(status == 'Alive'){
-    return Color.fromARGB(255, 56, 137, 59);
-  } else if (status == 'unknown'){
-   return Color.fromARGB(255, 131, 79, 19);
-  }
-  else
-  return Color.fromARGB(255, 0, 0, 0);
+    if (status == 'Alive') {
+      return const Color.fromARGB(255, 56, 137, 59);
+    } else if (status == 'unknown') {
+      return const Color.fromARGB(255, 131, 79, 19);
+    } else {
+      return const Color.fromARGB(255, 0, 0, 0);
+    }
   }
 }
