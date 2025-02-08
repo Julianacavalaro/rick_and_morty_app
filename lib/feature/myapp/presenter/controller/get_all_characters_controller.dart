@@ -12,13 +12,15 @@ class GetAllCharactersControllerImpl extends GetAllCharactersController {
   final GetAllCharactersUsecase usecase;
 
   GetAllCharactersControllerImpl({required this.usecase});
-
+       bool isLoading = true;
   @override
   Future<List<CharacterEntity>> getAllCharacters() async {
     final List<CharacterEntity> list;
 
     try {
+ 
       list = await usecase.getAllCharacters();
+        isLoading = false;
     } catch (e) {
       throw Exception();
     }

@@ -10,17 +10,18 @@ class HomePage extends StatefulWidget {
 
   @override
   State<HomePage> createState() =>
-      // TODO: implement createState
+ 
       _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  final controller = GetAllCharactersUsecaseImpl(repository: CharactersRepositoryImpl(datasource: GetCharactersDatasourceImpl()));
   GetAllCharactersUsecase usecase = GetAllCharactersUsecaseImpl(
       repository:
           CharactersRepositoryImpl(datasource: GetCharactersDatasourceImpl()));
   String firstName = "personagem";
   List<Widget> widgets2 = [];
-  // String names = '';
+
   Iterable<String> names2 = [];
   Iterable<String> images2 = [];
   Iterable<String> status2 = [];
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       firstName = dados.first.name;
       carregar = false;
-      Iterable<String> names = dados.map((e) => e.name);
+      List<String> names = dados.map((e) => e.name).toList();
       names2 = names;
       Iterable<String> images = dados.map((e) => e.image);
       images2 = images;
